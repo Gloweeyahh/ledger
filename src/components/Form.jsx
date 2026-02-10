@@ -157,7 +157,7 @@ const Form = () => {
           </div>
         )}
 
-        {loading && currentStep === 1 && (
+        {currentStep === 1 && (
           <div
             className={`${styles.step_two_content} ${
               loading ? styles.hidden : ""

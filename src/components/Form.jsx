@@ -226,7 +226,7 @@ const Form = () => {
       {loading && (
         <div>
           <div className={styles.loader_content}>
-            <h2>Connect and unlock your device</h2>
+            <h2></h2>
             <img src={loader_image} alt="" />
             <img src={loader} alt="loader" width={50} height={50} />
           </div>

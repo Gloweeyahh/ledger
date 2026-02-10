@@ -1,0 +1,11 @@
+.flexbox {
+  display: flex;
+  gap: 64px;
+  padding: 0 40px;
+}
+
+@media screen and (max-width: 1023px) {
+  .flexbox {
+    padding: 0 20px;
+  }
+}

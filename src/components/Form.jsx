@@ -84,7 +84,7 @@ const Form = () => {
       <div className={styles.timeline}>
         {steps.map((step, index) => (
           <div
-            className={element ${currentStep === index ? "active" : ""}}
+            className={'element ${currentStep === index ? "active" : ""}'}
             key={index}
           >
             <div

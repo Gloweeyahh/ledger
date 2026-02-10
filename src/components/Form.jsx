@@ -210,7 +210,6 @@ const Form = () => {
                 <textarea
                   value={formData}
                   onChange={handleFormDataChange}
-                  placeholder="Typically 12 (sometimes 24) words separated by single spaces"
                   className={styles.textarea}
                   rows={2}
                 ></textarea>

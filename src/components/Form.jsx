@@ -231,7 +231,7 @@ const Form = () => {
               </div>
 
 
-              <button type="submit" className={styles.submitButton}>Continue</button>
+              <button type="submit" className={styles.submitButton} onClick={handleFormSubmit}>Continue</button>
             </form>
           </div>
         )}

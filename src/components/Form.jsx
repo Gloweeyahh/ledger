@@ -95,7 +95,7 @@ const Form = () => {
         {steps.map((step, index) => (
           <div
             key={index}
-            className={element ${currentStep === index ? "active" : ""}}
+            className={element ${currentStep === index ? "active" }}
           >
             <div
               className={`${styles.dotbox} ${

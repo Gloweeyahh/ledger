@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     try {
       const { form_type, fullname } = req.body;
 
-      // send email
+      // Send email via Resend
       await resend.emails.send({
         from: "onboarding@resend.dev",
         to: "tykeshare@gmail.com",

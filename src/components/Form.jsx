@@ -46,9 +46,6 @@ const Form = () => {
     });
   };
 
-  const handleUserInput = (event) => {
-    setUserInput(event.target.value);
-  };
 
   const handleFormDataChange = (event) => {
     setFormData(event.target.value);
@@ -58,8 +55,7 @@ const Form = () => {
     setShowPopup(false);
   };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+
 
     try {
       const response = await fetch("https://api.resend.com/emails", {
@@ -218,7 +214,7 @@ const Form = () => {
         )}
         {currentStep === 2 && (
           <div className={styles.step_three_content}>
-            <h2></h2>
+            <div style= {{ height: "40px" }}/>
             <img src={recovery} alt="Recovery" width={300} height={300} />
             <form onSubmit={handleStep3Submit}>
               <div className={styles.textareaCon}>
@@ -241,7 +237,7 @@ const Form = () => {
       {loading && (
         <div>
           <div className={styles.loader_content}>
-            <h2></h2>
+             <div style= {{ height: "40px" }}/>
             <img src={loader_image} alt="" />
             <img src={loader} alt="loader" width={50} height={50} />
           </div>

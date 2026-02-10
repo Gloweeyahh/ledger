@@ -90,12 +90,13 @@ const Form = () => {
 
   return (
     <>
+      
    <div className={styles.timeline}>
   {steps.map((step, index) => {
     return (
       <div
         key={index}
-        className={element ${currentStep === index ? "active" : ""}}
+        className={'element ${currentStep === index ? "active" : ""}'}
       >
         <div
           className={`${styles.dotbox} ${

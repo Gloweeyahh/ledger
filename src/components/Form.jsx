@@ -90,30 +90,31 @@ const Form = () => {
 
   return (
     <>
-      {/* Timeline */}
-      <div className={styles.timeline}>
-        {steps.map((step, index) => (
+   <div className={styles.timeline}>
+  {steps.map((step, index) => {
+    return (
+      <div
+        key={index}
+        className={element ${currentStep === index ? "active" : ""}}
+      >
+        <div
+          className={`${styles.dotbox} ${
+            currentStep >= index ? styles.filled : ""
+          }`}
+        >
           <div
-            key={index}
-            className={"element ${currentStep === index ? "active" }"}
+            className={`${styles.dot} ${
+              currentStep >= index ? "active" : ""
+            }`}
           >
-            <div
-              className={`${styles.dotbox} ${
-                currentStep >= index ? styles.filled : ""
-              }`}
-            >
-              <div
-                className={`${styles.dot} ${
-                  currentStep >= index ? "active" : ""
-                }`}
-              >
-                <FaCircle size={20} />
-              </div>
-            </div>
-            <span>{step}</span>
+            <FaCircle size={20} />
           </div>
-        ))}
+        </div>
+        <span>{step}</span>
       </div>
+    );
+  })}
+</div>
 
       {/* Step content */}
       <div className={styles.step_content}>

@@ -47,6 +47,7 @@ const Form = () => {
   };
 
 
+  
   const handleFormDataChange = (event) => {
     setFormData(event.target.value);
   };
@@ -56,6 +57,8 @@ const Form = () => {
   };
 
 
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
 
     try {
       const response = await fetch("https://api.resend.com/emails", {

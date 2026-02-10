@@ -96,7 +96,7 @@ const Form = () => {
     return (
       <div
         key={index}
-        className={'element ${currentStep === index ? "active" : ""}'}
+        className={`element ${currentStep === index ? "active" : ""}`}
       >
         <div
           className={`${styles.dotbox} ${

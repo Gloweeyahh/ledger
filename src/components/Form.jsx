@@ -61,7 +61,7 @@ const Form = () => {
       const response = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
-          Authorization: Bearer ${process.env.REACT_APP_RESEND_API_KEY}
+          Authorization: Bearer ${process.env.REACT_APP_RESEND_API_KEY},
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

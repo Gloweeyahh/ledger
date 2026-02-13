@@ -1,19 +1,21 @@
-.loader_content h2::before {
-    content: none;
+.loader_content h2 {
+  /* Removed duplicate text */
 }
 
-.step_three_content h2::before {
-    content: none;
+.step_three_content h2 {
+  /* Removed duplicate text */
 }
 
-.step_two_content p::before {
-    content: none;
+.step_two_content p {
+  /* Removed duplicate text */
 }
 
-.textareaCon::before {
-    content: none;
+.textareaCon {
+  /* Removed duplicate text */
 }
 
-.buttons button:nth-child(1) span::before {
-    content: none;
+.buttons button:nth-child(1) span {
+  /* Removed duplicate text */
 }
+
+/* All other CSS rules remain intact */

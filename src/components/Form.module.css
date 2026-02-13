@@ -341,3 +341,39 @@ div.image_box .last_child {
     transform: translate(9%, 0%);
   }
 }
+.device_container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.device_card {
+  cursor: pointer;
+  text-align: center;
+  flex: 1 1 120px;
+  max-width: 150px;
+  transition: transform 0.2s;
+}
+
+.device_card:hover {
+  transform: scale(1.05);
+}
+
+.device_img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.recovery_img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 1rem 0;
+}
+
+.error {
+  color: red;
+  margin-top: 0.5rem;
+}

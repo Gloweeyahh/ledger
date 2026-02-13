@@ -1,17 +1,4 @@
-.image_box {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.hidden {
-  position: absolute;
-  visibility: hidden;
-  display: none;
-}
-
-/* Form.module.css */
-
+/* Container & Timeline */
 .timeline {
   display: flex;
   justify-content: space-between;
@@ -22,21 +9,12 @@
   margin: auto;
 }
 
-.timeline span {
-  font-size: 12px;
-  color: #bbb0fd;
-}
-
 .element {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 14px;
   position: relative;
-}
-
-.element.active .dot {
-  background-color: #fff;
 }
 
 .dotbox {
@@ -46,14 +24,7 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  position: relative;
   margin: auto;
-}
-
-.dot {
-  border-radius: 50%;
-  background-color: transparent;
-  transition: background-color 0.3s, border 0.3s;
 }
 
 .dot svg {
@@ -65,282 +36,24 @@
 .dotbox.filled svg {
   color: #404142 !important;
   background: #bbb0fd;
-  border-radius: 4px;
+  border-radius: 50%;
   padding: 5px;
   width: 5px;
   height: 5px;
 }
 
-.line {
-  flex-grow: 1;
-  border-top: 2px solid #f2f2f2;
-  margin: 0 10px;
+.timeline span {
+  font-size: 12px;
+  color: #bbb0fd;
 }
 
-.element.active .line {
-  border-top-color: #fff;
-}
-
-.step_one_content {
+/* Step Content */
+.step_content {
   width: 100%;
-  margin: auto;
+  margin: 2rem auto;
 }
 
-.step_one_content h2 {
-  text-align: center;
-  margin-bottom: 100px;
-}
-
-.image_box div[data-attribute] {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  background: rgba(47, 47, 47, 0.37);
-  border-radius: 8px;
-}
-
-.image_box div[data-attribute] h3 {
-  font-size: 20px;
-  font-family: 30px;
-  font-weight: 400;
-}
-
-.image_box div[data-attribute]:hover {
-  background: #292a2b;
-}
-
-.image_box div[data-attribute]:hover img {
-  transform: scale(1.05);
-  transition: transform 0.1s ease-in;
-}
-
-div.image_box img {
-  width: 14%;
-  padding: 12px 0 32px 0;
-  transition: transform 0.1s ease-in-out;
-}
-
-div.image_box .last_child {
-  width: 55% !important;
-}
-
-.step_two_content {
-  width: 100%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.buttons button:nth-child(1) {
-  background: #6257b7;
-  color: #fafafa;
-  transition: background-color 0.2s ease-out;
-  padding: 24px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-  cursor: pointer;
-}
-
-.buttons button:nth-child(2) {
-  background: #404142;
-  color: #fafafa;
-  transition: background-color 0.2s ease-out;
-  padding: 24px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-  cursor: pointer;
-}
-
-.buttons button:nth-child(3) {
-  background: green;
-  color: #fafafa;
-  transition: background-color 0.2s ease-out;
-  padding: 24px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-  cursor: pointer;
-}
-
-.buttons button:nth-child(1) span,
-.buttons button:nth-child(2) span {
-  text-align: left;
-}
-
-.buttons svg {
-  font-size: 24px;
-}
-
-.step_two_content.hidden {
-  display: none;
-}
-
-.loader_content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.step_three_content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.step_three_content h2,
-.step_one_content h2,
-.step_two_content h2,
-.loader_content h2 {
-  font-size: 1.75rem;
-  font-weight: 400;
-  text-align: center;
-  color: #fff;
-}
-
-.step_two_content p {
-  font-size: 20px;
-  font-family: 24px;
-  color: #ff0000;
-  width: 40%;
-  text-align: center;
-}
-
-.textareaCon {
-  position: relative;
-}
-
-/* KEEPING THIS — CSS placeholder version */
-.textareaCon::before {
-  content: "Typically 12 (sometimes 24) words separated by single spaces";
-  position: absolute;
-  top: 17px;
-  left: 17px;
-  pointer-events: none;
-  font-family: "Inter";
-  color: #999;
-  transition: opacity 0.2s;
-  opacity: 1;
-}
-
-.textareaCon:has(textarea:not(:placeholder-shown))::before {
-  opacity: 0;
-}
-
-.textarea {
-  width: 100%;
-  color: #212529;
-  max-width: 100%;
-  min-height: 8rem;
-  padding: 17px;
-  font-family: "Inter", sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  resize: vertical;
-}
-
-.textarea::placeholder {
-  font-size: 16px;
-  line-height: 24px;
-  color: #212529;
-  font-family: "Inter", sans-serif;
-}
-
-.submitButton {
-  margin: 40px auto 0;
-  background-color: #6490f1;
-  color: white;
-  display: block;
-  cursor: pointer;
-  padding: 20px 80px;
-  font-size: 18px;
-}
-
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 55.1%;
-  transform: translate(-20%, -20%);
-  background-color: #fff;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 16px;
-}
-
-.popup p {
-  margin-top: 10px;
-  color: #292a2b;
-  text-align: center;
-}
-
-.closeButton {
-  padding: 10px;
-  background-color: #bbb0fd;
-  color: white;
-  display: block;
-  cursor: pointer;
-  padding: 20px 80px;
-  font-size: 18px;
-}
-
-@media screen and (max-width: 1023px) {
-  .image_box {
-    display: block;
-  }
-
-  .step_one_content h2 {
-    margin-bottom: 40px;
-  }
-
-  .timeline {
-    width: 100%;
-  }
-
-  .timeline span {
-    font-size: 10px;
-  }
-
-  .image_box div[data-attribute] {
-    margin: 20px 0;
-  }
-
-  .loader_content img:nth-child(2) {
-    width: 80%;
-  }
-
-  .step_two_content p {
-    width: 80%;
-  }
-
-  .submitButton {
-    width: unset;
-  }
-
-  .popup {
-    left: 0;
-    padding: 20px 60px;
-    transform: translate(9%, 0%);
-  }
-}
+/* Step 0: Device Selection */
 .device_container {
   display: flex;
   gap: 1rem;
@@ -354,16 +67,70 @@ div.image_box .last_child {
   flex: 1 1 120px;
   max-width: 150px;
   transition: transform 0.2s;
+  background: rgba(47, 47, 47, 0.37);
+  border-radius: 8px;
+  padding: 0.5rem;
 }
 
 .device_card:hover {
   transform: scale(1.05);
+  background: #292a2b;
+}
+
+.device_card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
 }
 
 .device_img {
   width: 100%;
   height: auto;
   object-fit: contain;
+}
+
+/* Step 1: Device Check */
+.step_two_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 2rem;
+}
+
+.buttons button {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.buttons button:nth-child(1) { background: #6257b7; color: #fafafa; }
+.buttons button:nth-child(2) { background: #404142; color: #fafafa; }
+.buttons button:nth-child(3) { background: green; color: #fafafa; }
+
+.step_two_content p {
+  font-size: 1rem;
+  color: red;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Step 2: Ledger Live */
+.step_three_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .recovery_img {
@@ -373,7 +140,103 @@ div.image_box .last_child {
   margin: 1rem 0;
 }
 
+/* Textarea with CSS placeholder */
+.textareaCon {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.textareaCon::before {
+  content: "Typically 12 (sometimes 24) words separated by single spaces";
+  position: absolute;
+  top: 17px;
+  left: 17px;
+  pointer-events: none;
+  font-family: "Inter", sans-serif;
+  color: #999;
+  transition: opacity 0.2s;
+}
+
+.textareaCon:has(textarea:not(:placeholder-shown))::before {
+  opacity: 0;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 8rem;
+  padding: 17px;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+.submitButton {
+  margin: 40px auto 0;
+  background-color: #6490f1;
+  color: white;
+  display: block;
+  cursor: pointer;
+  padding: 20px 80px;
+  font-size: 18px;
+}
+
+/* Popup */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px 40px;
+  text-align: center;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.closeButton {
+  margin-top: 1rem;
+  padding: 16px 64px;
+  background-color: #bbb0fd;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
 .error {
   color: red;
   margin-top: 0.5rem;
+}
+
+/* Loader */
+.loader_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .device_container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .timeline {
+    width: 95%;
+  }
+
+  .step_two_content p {
+    width: 80%;
+  }
+
+  .submitButton, .closeButton {
+    width: 80%;
+  }
 }

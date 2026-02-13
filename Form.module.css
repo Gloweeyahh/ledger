@@ -333,20 +333,25 @@ div.image_box .last_child {
 }
 
 .device_card {
-  cursor: pointer;
-  text-align: center;
-  flex: 1 1 120px;
-  max-width: 150px;
-  transition: transform 0.2s;
+  flex: 1 1 120px;  /* already there */
+  max-width: 150px; /* good */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  padding: 8px;
+  background: rgba(47,47,47,0.2);
+  border-radius: 8px;
 }
+
 
 .device_card:hover {
   transform: scale(1.05);
 }
 
 .device_img {
-  width: 100%;
-  height: auto;
+  width: 100%;       /* can keep */
+  max-height: 150px; /* limits vertical stretch */
   object-fit: contain;
 }
 

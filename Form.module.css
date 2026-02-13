@@ -222,22 +222,6 @@ div.image_box .last_child {
   position: relative;
 }
 
-/* KEEPING THIS — CSS placeholder version */
-.textareaCon::before {
-  content: "Typically 12 (sometimes 24) words separated by single spaces";
-  position: absolute;
-  top: 17px;
-  left: 17px;
-  pointer-events: none;
-  font-family: "Inter";
-  color: #999;
-  transition: opacity 0.2s;
-  opacity: 1;
-}
-
-.textareaCon:has(textarea:not(:placeholder-shown))::before {
-  opacity: 0;
-}
 
 .textarea {
   width: 100%;
@@ -377,3 +361,12 @@ div.image_box .last_child {
   color: red;
   margin-top: 0.5rem;
 }
+
+
+.textarea::placeholder {
+  font-size: 16px;
+  line-height: 24px;
+  color: #999; /* lighter than your text */
+  font-family: "Inter", sans-serif;
+}
+

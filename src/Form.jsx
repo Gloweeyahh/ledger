@@ -19,6 +19,7 @@ const Form = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -111,6 +112,14 @@ const Form = () => {
         {currentStep === 0 && (
           <div className={`${styles.step_one_content} ${imageSelected ? styles.hidden : ""}`}>
             <h2>Select your Device</h2>
+
+            {/* Preview of selected device */}
+{selectedImage && (
+  <div className={styles.selected_preview}>
+    <p>Selected device:</p>
+    <img src={selectedImage} alt="Selected Device" />
+  </div>
+)}
             <div className={styles.device_container}>
               <div className={styles.device_card} onClick={() => handleImageSelect(nanos)}>
                 <h3>Nano S</h3>

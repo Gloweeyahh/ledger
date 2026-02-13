@@ -16,7 +16,6 @@ import {
 
 const Form = () => {
   const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);

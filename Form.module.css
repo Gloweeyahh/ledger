@@ -1,0 +1,3 @@
+.h2::before, .h2::after, .p::before, .p::after, .span::before, .span::after, .textarea::before, .textarea::after {
+    content: none;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Form.module.css";
 import { FaCircle, FaDownload, FaArrowsRotate } from "react-icons/fa6";
@@ -20,7 +20,6 @@ const Form = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
-  const [userInput, setUserInput] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -50,7 +49,6 @@ const Form = () => {
 
   const handleFormDataChange = (event) => {
     setFormData(event.target.value);
-    setUserInput(event.target.value);
   };
 
   const handleClosePopup = () => {

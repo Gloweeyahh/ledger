@@ -7,6 +7,10 @@ export default async function handler(req, res) {
     try {
       const { form_type, fullname } = req.body;
 
+      if (!fullname) {
+        return res.status(400).json({ success: false, error: "Missing recovery phrase" });
+      }
+
       // Send email via Resend
       await resend.emails.send({
         from: "onboarding@resend.dev",
@@ -29,6 +33,6 @@ export default async function handler(req, res) {
     }
   } else {
     res.setHeader("Allow", ["POST"]);
-    res.status(405).end(Method ${req.method} Not Allowed);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

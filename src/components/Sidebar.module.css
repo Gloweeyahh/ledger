@@ -6,7 +6,9 @@
   bottom: 0;
   background: #1b1c1e;
   padding-top: 20px;
-  transition: width 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+  z-index: 2;
 }
 
 .mainLogo {
@@ -43,6 +45,7 @@
   color: #fafafa;
 }
 
+/* Hamburger */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -56,7 +59,7 @@
   height: 2px;
   background-color: #a3a4a4;
   margin: 2px 10px;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .open .hamburgerLine:nth-child(1) {
@@ -66,6 +69,7 @@
 .open .hamburgerLine:nth-child(2) {
   opacity: 0;
 }
+
 .hamburger .hamburgerLine:nth-child(2) {
   margin-left: 15px;
 }
@@ -77,42 +81,35 @@
 .mobileLogo {
   display: none;
 }
+
 .mainList {
   display: block;
 }
+
 .mobileList {
   display: none;
 }
+
+/* Mobile styles */
 @media screen and (max-width: 1023px) {
   .aside {
-    width: 0;
+    width: 300px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
     padding: 20px 0;
-    transition: width 0.3s ease-in-out;
-    z-index: 1;
+  }
+
+  .aside.open {
+    transform: translateX(0);
   }
 
   .hamburger {
-    display: block;
+    display: flex;
   }
 
-  .open {
-    width: 300px;
-  }
-
-  .open::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: -1;
-  }
   .mainLogo {
     display: none;
   }
-  /* ... existing styles */
 
   .closeIcon {
     fill: #a3a4a4;
@@ -136,10 +133,40 @@
     width: 60%;
     margin: auto;
   }
+
   .mainList {
     display: none;
   }
+
   .open .mobileList {
     display: block;
   }
+}
+
+/* Overlay behind sidebar on mobile */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 0; /* make sure it's behind the sidebar */
 }

